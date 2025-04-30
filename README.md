@@ -1,72 +1,37 @@
-# FOOD101 - Web Application
+# Food Classification and Nutritional Estimation  
 
-Web Application based on Food101 Dataset. Used to classify food images using deep learning models.
+## Overview  
+This project implements an **AI-driven food classification** system that identifies food items from images and estimates their **nutritional content**. The system is designed for applications in **dietary tracking, health monitoring, and nutrition management**.  
 
-## Installation and Setup
+## How It Works  
+1. **Model Selection** – Users can choose from **EfficientNetV2B2, InceptionV3, or a CNN** for classification.  
+2. **Image Upload** – Users upload a food image via the web interface.  
+3. **Classification** – The model predicts the food category with a confidence score.  
+4. **Nutritional Estimation** – The system retrieves nutritional values (calories, fat, carbs, protein) based on USDA’s **Food Data Central**.  
 
-### Prerequisites
+## Technology Stack  
+- **Deep Learning Models:** CNNs, EfficientNetV2B2, InceptionV3  
+- **Machine Learning Models:** Decision Tree, Random Forest  
+- **Dataset:** Food-101, USDA Food Data Central  
+- **Backend:** Python 
+- **Frontend:** HTML, CSS, JavaScript (React)
 
-- Python 3.11 for the backend
-- Node.js and npm for the frontend
-- TensorFlow 2.19.0
-- Pre-trained models (h5 files)
+## Key Features  
+- **Accurate Food Classification** using transfer learning  
+- **Nutritional Information Retrieval** for each classified food  
+- **User-friendly Web Interface** for easy image uploads and predictions  
+- **Model Comparison** with traditional classifiers (Random Forest, Decision Trees)  
 
-### Backend Installation
-
-```bash
-# Clone the repository
-git clone [link]
-cd [file]
-
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies from requirements.txt
-pip install -r requirements.txt
-
-# Start the backend server
-python main.py
-```
-
-Open your browser and go to http://127.0.0.1:5174/
-
-### Frontend Installation
-
-```bash
-# Navigate to the frontend directory
-cd frontend
-
-# Install dependencies using package.json
-npm install
-
-# Start the development server
-npm run dev
-```
-
-Open your browser and go to http://localhost:5173
+---
+**Web Interface:**  
+![Food Classification Web Interface](food101.gif)
 
 
-## Project Structure
+## Authors
+Project done during AI MSc at University of Kent for AI Sytems Implementation module.
 
-```bash
-food101-classifier/
-├── src/
-│   ├── assets/                 
-│   ├── back/                  
-│   │   ├── models/             
-│   │   ├── main.py             
-│   │   ├── nutrition.json      
-│   │   └── requirements.txt    
-│   │
-│   ├── front/                 
-│   │   ├── App.jsx             
-│   │   ├── index.jsx           
-│   │   └── styles.css          
-│
-├── index.html                  
-├── vite.config.js              
-└── package.json                
-         
-
-```
+- **Isabelle Bricaud : CNN, All Web Application, JSON file**
+- Sushi Prommuangkun : InceptionV3
+- Napatchol Thaipanich : EfficientNet
+- Alfred Ogunbayo : Decision Tree
+- Priscilla Baiya : Random Forest
