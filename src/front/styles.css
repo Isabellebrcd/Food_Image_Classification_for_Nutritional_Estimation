@@ -27,7 +27,7 @@ body {
     overflow: hidden;
 }
 
-/* Food background icons */
+
 .food-background {
     position: fixed;
     width: 100%;
@@ -39,7 +39,7 @@ body {
     pointer-events: none;
 }
 
-/* Grid-based layout for SVG backgrounds */
+
 .food-background {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -61,7 +61,7 @@ body {
     fill: var(--primary-light);
 }
 
-/* Main content styling */
+
 .app-content {
     display: flex;
     flex-direction: column;
@@ -72,7 +72,7 @@ body {
     z-index: 1;
 }
 
-/* Home section */
+
 .home-section {
     min-height: 100vh;
     display: flex;
@@ -84,6 +84,7 @@ body {
 .title-container {
     position: relative;
     text-align: center;
+    margin-top: 10px;
     margin-bottom: 100px;
     padding: 20px;
     z-index: 0;
@@ -123,12 +124,12 @@ body {
 }
 
 .main-title, .subtitle {
-    position: relative; /* Assurez-vous que le texte est au-dessus */
-    z-index: 1; /* Un z-index supérieur à celui du conteneur */
+    position: relative;
+    z-index: 1;
 }
 
 
-/* Food categories */
+
 .infinite-scroll-container {
     position: relative;
     width: 100%;
@@ -155,7 +156,7 @@ body {
     }
 }
 
-/* Food categories */
+
 .category-card {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
@@ -206,7 +207,7 @@ body {
     line-height: 1.5;
 }
 
-/* Responsive styles */
+
 @media screen and (max-width: 1400px) {
     .category-card {
         width: 260px;
@@ -291,7 +292,7 @@ body {
     box-shadow: 0 8px 20px rgba(44, 125, 67, 0.4);
 }
 
-/* Classifier section */
+
 .classifier-section {
     min-height: 100vh;
     padding: 50px 20px;
@@ -389,20 +390,20 @@ body {
     overflow: hidden;
 }
 
-/* Pour les navigateurs qui prennent en charge les pseudo-éléments pour progress */
+
 .progress-bar::-webkit-progress-bar {
     border-radius: 50px;
-    background-color: #e0e0e0; /* Couleur de fond grise personnalisée */
+    background-color: #e0e0e0;
 }
 
 .progress-bar::-webkit-progress-value {
     border-radius: 50px;
-    background-color: #4CAF50; /* Couleur de la barre de progression */
+    background-color: #4CAF50;
 }
 
 .progress-bar::-moz-progress-bar {
     border-radius: 50px;
-    background-color: #4CAF50; /* Couleur de la barre de progression pour Firefox */
+    background-color: #4CAF50;
 }
 
 .avocado {
@@ -429,7 +430,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* Styles pour la section de sélection de modèle */
+
 .model-selection {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 1.5rem;
@@ -486,7 +487,7 @@ body {
     font-style: italic;
 }
 
-/* Mise à jour des styles existants pour le resultat */
+
 .result-container {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 1.5rem;
@@ -512,7 +513,7 @@ body {
     font-weight: 500;
 }
 
-/* Ajoutez ces styles à votre fichier CSS existant */
+
 
 .nutrition-container {
     margin-top: 20px;
@@ -562,7 +563,7 @@ body {
     margin-top: 5px;
 }
 
-/* Pour les écrans mobiles */
+
 @media (max-width: 768px) {
     .nutrition-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -577,7 +578,7 @@ body {
 }
 
 
-/* Responsive design */
+
 @media (max-width: 768px) {
     .main-title {
         font-size: 3.5rem;
@@ -614,9 +615,9 @@ body {
     }
 }
 
-/* Ajoutez ces styles à votre fichier CSS existant */
 
-/* Styles pour la nouvelle disposition à deux colonnes */
+
+
 .classifier-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -626,7 +627,7 @@ body {
     margin: 0 auto;
 }
 
-/* Styles pour les colonnes gauche et droite */
+
 .classifier-left-column,
 .classifier-right-column {
     display: flex;
@@ -634,7 +635,7 @@ body {
     width: 100%;
 }
 
-/* Container vert transparent pour la colonne de gauche */
+
 .model-selection-container {
     background-color: rgba(44, 125, 67, 0.17);
     backdrop-filter: blur(10px);
@@ -648,7 +649,7 @@ body {
     flex-direction: column;
 }
 
-/* Styles pour le titre de sélection des modèles */
+
 .model-selection-title {
     font-size: 1.3rem;
     color: var(--primary-color);
@@ -656,7 +657,7 @@ body {
     text-align: center;
 }
 
-/* Styles pour les boutons de modèle */
+
 .model-buttons {
     display: flex;
     justify-content: center;
@@ -691,7 +692,7 @@ body {
     box-shadow: 0 4px 8px rgba(44, 125, 67, 0.3);
 }
 
-/* Styles pour la description du modèle */
+
 .model-description {
     text-align: center;
     font-size: 0.95rem;
@@ -700,7 +701,7 @@ body {
     font-style: italic;
 }
 
-/* Styles pour la zone de drop pour l'image */
+
 .dropzone {
     border: 2px dashed var(--primary-color);
     border-radius: 12px;
@@ -738,7 +739,7 @@ body {
     display: none;
 }
 
-/* Styles pour le bouton de prédiction */
+
 .predict-button {
     background-color: var(--primary-color);
     color: white;
@@ -766,7 +767,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Container blanc transparent pour la colonne de droite */
+
 .preview-results-container {
     background-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(10px);
@@ -781,7 +782,7 @@ body {
     align-items: center;
 }
 
-/* Styles pour le conteneur d'aperçu d'image */
+
 .image-preview-container {
     width: 100%;
     margin-bottom: 25px;
@@ -808,7 +809,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles pour l'espace sans image */
+
 .no-preview-placeholder {
     display: flex;
     flex-direction: column;
@@ -827,7 +828,7 @@ body {
     font-size: 1.1rem;
 }
 
-/* Styles pour la barre de progression */
+
 .progress-container {
     width: 100%;
     margin: 20px 0;
@@ -842,7 +843,7 @@ body {
     overflow: hidden;
 }
 
-/* Styles pour les résultats */
+
 .result-container {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
@@ -873,7 +874,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Styles pour les informations nutritionnelles */
+
 .nutrition-container {
     margin-top: 20px;
     padding: 20px;
@@ -924,7 +925,7 @@ body {
     margin-top: 5px;
 }
 
-/* Styles pour le conteneur d'erreur */
+
 .error-container {
     background: rgba(255, 180, 180, 0.7);
     padding: 20px;
@@ -941,14 +942,14 @@ body {
     font-weight: 600;
 }
 
-/* Styles pour l'icône de téléchargement */
+
 .upload-icon {
     width: 48px;
     height: 48px;
     margin-bottom: 10px;
 }
 
-/* Styles responsifs */
+
 @media (max-width: 992px) {
     .classifier-content {
         grid-template-columns: 1fr;
@@ -1018,7 +1019,7 @@ body {
     }
 }
 
-/* Pour le container à fond vert (model-selection-container) */
+
 .model-selection-container {
     position: relative;
     background-color: rgba(44, 125, 67, 0.17);
@@ -1031,10 +1032,10 @@ body {
     border: 1px solid rgba(44, 125, 67, 0.15);
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Important pour que l'arc ne dépasse pas */
+    overflow: hidden;
 }
 
-/* Arc de cercle blanc pour le container vert */
+
 .model-selection-container::before {
     content: "";
     position: absolute;
@@ -1045,12 +1046,12 @@ body {
     top: -75px;
     right: -75px;
     z-index: 0;
-    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.7), /* lueur blanche */
-                inset 0 0 8px 2px rgba(255, 255, 255, 0.5); /* lueur intérieure */
+    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.7),
+                inset 0 0 8px 2px rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-/* Pour le container à fond blanc (preview-results-container) */
+
 .preview-results-container {
     position: relative;
     background-color: rgba(255, 255, 255, 0.4);
@@ -1064,10 +1065,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden; /* Important pour que l'arc ne dépasse pas */
+    overflow: hidden;
 }
 
-/* Arc de cercle vert pour le container blanc */
+
 .preview-results-container::before {
     content: "";
     position: absolute;
@@ -1078,19 +1079,19 @@ body {
     bottom: -75px;
     left: -75px;
     z-index: 0;
-    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.7), /* lueur blanche */
-                inset 0 0 8px 2px rgba(255, 255, 255, 0.5); /* lueur intérieure */
+    box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.7),
+                inset 0 0 8px 2px rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-/* Assurer que tout le contenu reste au-dessus des arcs de cercle */
+
 .model-selection-container > *,
 .preview-results-container > * {
     position: relative;
     z-index: 1;
 }
 
-/* Gestion responsive des arcs */
+
 @media (max-width: 768px) {
     .model-selection-container::before,
     .preview-results-container::before {

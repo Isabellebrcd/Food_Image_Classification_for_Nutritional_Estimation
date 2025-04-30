@@ -13,26 +13,26 @@ function App() {
     const [progress, setProgress] = useState(0);
     const [nutritionInfo, setNutritionInfo] = useState(null);
 
-    // Nouveaux états pour les modèles
+
     const [availableModels, setAvailableModels] = useState([]);
     const [selectedModel, setSelectedModel] = useState("EfficientNetV2B2");
 
 
-    // Récupérer la liste des modèles disponibles au chargement
+
     useEffect(() => {
         const fetchModels = async () => {
             try {
                 const response = await axios.get("http://127.0.0.1:5174/models");
                 if (response.data && response.data.models) {
                     setAvailableModels(response.data.models);
-                    // Définir le modèle actuel comme modèle sélectionné par défaut
+
                     if (response.data.current_model) {
                         setSelectedModel(response.data.current_model);
                     }
                 }
             } catch (error) {
-                console.error("Erreur lors de la récupération des modèles:", error);
-                setError("Impossible de récupérer la liste des modèles. Vérifiez que le backend est en cours d'exécution.");
+                console.error("Error while retrieving models:", error);
+                setError("Unable to retrieve the list of models. Check that the backend is running.");
             }
         };
 
@@ -41,11 +41,11 @@ function App() {
 
     useEffect(() => {
         if (loading) {
-            // Réinitialiser la progression
+
             setProgress(0);
 
-            // Définir la durée totale (en ms)
-            const totalDuration = 350; // 0.35 secondes
+
+            const totalDuration = 350;
             const framesPerSecond = 60;
             const totalFrames = Math.ceil((totalDuration / 1000) * framesPerSecond);
             const incrementPerFrame = 100 / totalFrames;
@@ -62,7 +62,7 @@ function App() {
 
             requestAnimationFrame(animate);
         } else {
-            // Réinitialiser quand le chargement est terminé
+
             setProgress(0);
         }
     }, [loading]);
@@ -83,14 +83,14 @@ function App() {
 
     const handleModelChange = (modelName) => {
         setSelectedModel(modelName);
-        // Réinitialiser les prédictions lors du changement de modèle
+
         setPrediction("");
         setConfidence(null);
     };
 
     const handleUpload = async () => {
         if (!file) {
-            setError("Veuillez sélectionner une image");
+            setError("Please select an image");
             return;
         }
 
@@ -103,12 +103,12 @@ function App() {
         formData.append("file", file);
 
         try {
-            console.log(`Envoi de la requête à l'API avec le modèle ${selectedModel}...`);
+            console.log(`Sending the request to the API with the model ${selectedModel}...`);
             const response = await axios.post(`http://127.0.0.1:5174/predict?model_name=${selectedModel}`, formData, {
                 headers: {"Content-Type": "multipart/form-data"},
             });
 
-            console.log("Réponse reçue:", response.data);
+            console.log("Response received:", response.data);
             if (response.data && response.data.prediction) {
                 setPrediction(response.data.prediction);
                 setConfidence(response.data.confidence);
@@ -117,21 +117,21 @@ function App() {
                     setNutritionInfo(response.data.nutrition);
                 }
             } else {
-                setError("Format de réponse incorrect");
+                setError("Incorrect response format");
             }
         } catch (error) {
-            console.error("Erreur lors de la prédiction:", error);
+            console.error("Error during prediction:", error);
 
             if (error.response) {
-                console.error("Données de réponse:", error.response.data);
+                console.error("Response data:", error.response.data);
                 console.error("Status:", error.response.status);
-                setError(`Erreur ${error.response.status}: ${JSON.stringify(error.response.data)}`);
+                setError(`Error ${error.response.status}: ${JSON.stringify(error.response.data)}`);
             } else if (error.request) {
-                console.error("Pas de réponse reçue");
-                setError("Le serveur ne répond pas. Vérifiez que le backend est en cours d'exécution.");
+                console.error("No response received");
+                setError("The server is not responding. Check that the backend is running.");
             } else {
-                console.error("Erreur de configuration:", error.message);
-                setError(`Erreur: ${error.message}`);
+                console.error("Configuration error:", error.message);
+                setError(`Error: ${error.message}`);
             }
         } finally {
             setLoading(false);
@@ -154,7 +154,7 @@ function App() {
             </div>
         );
     };
-    // SVG Components for food icons
+
     const BananaIcon = ({style}) => (
         <svg width="60px" height="60px" viewBox="0 -11.18 437.91 437.91" style={style}>
             <path className="food-icon-path"
@@ -179,13 +179,12 @@ function App() {
     );
 
 
-    // Ajoutez ce composant pour afficher les informations nutritionnelles
     const NutritionInfo = ({nutrition}) => {
         if (!nutrition) return null;
 
         return (
             <div className="nutrition-container">
-                <h3 className="nutrition-title">Informations nutritionnelles</h3>
+                <h3 className="nutrition-title">Nutritional information</h3>
                 <div className="nutrition-grid">
                     <div className="nutrition-item">
                         <div className="nutrition-value">{nutrition.calories || "N/A"}</div>
@@ -193,41 +192,38 @@ function App() {
                     </div>
                     <div className="nutrition-item">
                         <div className="nutrition-value">{nutrition.fat || "N/A"}g</div>
-                        <div className="nutrition-label">Lipides</div>
+                        <div className="nutrition-label">Fat</div>
                     </div>
                     <div className="nutrition-item">
                         <div className="nutrition-value">{nutrition.carbs || "N/A"}g</div>
-                        <div className="nutrition-label">Glucides</div>
+                        <div className="nutrition-label">Carbs</div>
                     </div>
                     <div className="nutrition-item">
                         <div className="nutrition-value">{nutrition.protein || "N/A"}g</div>
-                        <div className="nutrition-label">Protéines</div>
+                        <div className="nutrition-label">Protein</div>
                     </div>
                 </div>
             </div>
         );
     };
 
-    // Generate random food icons for background
     const generateFoodBackground = () => {
         const icons = [];
         const foodTypes = ['banana', 'avocado', 'burger'];
-        const gridSize = {cols: 6, rows: 6}; // 6x6 grid
+        const gridSize = {cols: 6, rows: 6};
         const totalCells = gridSize.cols * gridSize.rows;
 
-        // Fill the grid with evenly distributed food icons
         for (let i = 0; i < totalCells; i++) {
             const row = Math.floor(i / gridSize.cols);
             const col = i % gridSize.cols;
 
-            // Choose a food type in a deterministic way to ensure variety
             const foodTypeIndex = i % foodTypes.length;
             const foodType = foodTypes[foodTypeIndex];
 
-            // Calculate rotation to make each icon unique
-            const rotation = (i * 30) % 360; // Rotate by multiples of 30 degrees
 
-            // Create style with grid position and rotation
+            const rotation = (i * 30) % 360;
+
+
             const style = {
                 gridRow: `${row + 1}`,
                 gridColumn: `${col + 1}`,
@@ -260,147 +256,144 @@ function App() {
         </svg>
     );
 
-    // Change to classifier section
+
     const goToClassifier = () => {
         setCurrentSection("classifier");
-        // Smooth scroll to classifier section
         document.getElementById("classifier-section").scrollIntoView({behavior: "smooth"});
     };
 
-    // Home section content
+
     const renderHomeSection = () => (
         <div className="home-section">
             <div className="title-container">
                 <TitleBackgroundSVG className="title-background-svg"/>
                 <h1 className="main-title">F<span className="accent-letter">OO</span>D101</h1>
-                <p className="subtitle">Découvrez ce que vous mangez en un seul clic</p>
+                <p className="subtitle">Find out what you eat in just one click</p>
             </div>
 
             <div className="infinite-scroll-container">
                 <div className="scroll-content">
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/pad_thai.png" alt="Plat principal" className="category-image"/>
+                            <img src="/src/assets/pad_thai.png" alt="Pad thai" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Plats Principaux</h3>
-                        <p className="category-description">Identifiez les plats principaux de différentes cuisines</p>
+                        <h3 className="category-title">Pad Thaï</h3>
+                        <p className="category-description">An energy-packed Thai dish combining fried noodles, protein and peanuts.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/oysters.png" alt="Desserts" className="category-image"/>
+                            <img src="/src/assets/oysters.png" alt="Oyesters" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Desserts</h3>
-                        <p className="category-description">Reconnaissez les desserts et pâtisseries populaires</p>
+                        <h3 className="category-title">Oysters</h3>
+                        <p className="category-description">Seafood rich in zinc, omega-3 and protein, renowned for its immune benefits and iodine texture.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/sushis.png" alt="Fast Food" className="category-image"/>
+                            <img src="/src/assets/sushis.png" alt="Sushis" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Fast Food</h3>
-                        <p className="category-description">Analysez les différents types de fast food</p>
+                        <h3 className="category-title">Sushis</h3>
+                        <p className="category-description">Balanced Japanese bites, combining vinegared rice, raw fish and seaweed, rich in omega-3 and protein.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/beef_tartare.png" alt="Cuisines du monde" className="category-image"/>
+                            <img src="/src/assets/beef_tartare.png" alt="Beef tartare" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Cuisines du Monde</h3>
-                        <p className="category-description">Découvrez les spécialités culinaires internationales</p>
+                        <h3 className="category-title">Beef Tartare</h3>
+                        <p className="category-description">A raw dish rich in protein and iron, appreciated for its tenderness and spicy seasonings.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/cupcakes.png" alt="Boissons" className="category-image"/>
+                            <img src="/src/assets/cupcakes.png" alt="Cupcakes" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Boissons</h3>
-                        <p className="category-description">Identifiez les boissons populaires du monde entier</p>
+                        <h3 className="category-title">Cupcakes</h3>
+                        <p className="category-description">Soft little cakes, rich in sugars and fats, recognisable by their colourful, decorative icing.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/waffles.png" alt="Boissons" className="category-image"/>
+                            <img src="/src/assets/waffles.png" alt="Waffles" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Boissons</h3>
-                        <p className="category-description">Identifiez les boissons populaires du monde entier</p>
+                        <h3 className="category-title">Waffles</h3>
+                        <p className="category-description">Crunchy, moist waffles, rich in carbohydrates, often topped with sugar, fruit or chocolate.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/paella.png" alt="Entrées" className="category-image"/>
+                            <img src="/src/assets/paella.png" alt="Paella" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Entrées</h3>
-                        <p className="category-description">Explorez les différentes entrées de la gastronomie
-                            mondiale</p>
+                        <h3 className="category-title">Paëlla</h3>
+                        <p className="category-description">A Spanish dish rich in rice, proteins (seafood, chicken) and vegetables, with a tasty, colourful flavour.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/pad_thai.png" alt="Plat principal" className="category-image"/>
+                            <img src="/src/assets/pad_thai.png" alt="Pad thai" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Plats Principaux</h3>
-                        <p className="category-description">Identifiez les plats principaux de différentes cuisines</p>
+                        <h3 className="category-title">Pad Thaï</h3>
+                        <p className="category-description">An energy-packed Thai dish combining fried noodles, protein and peanuts.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/oysters.png" alt="Desserts" className="category-image"/>
+                            <img src="/src/assets/oysters.png" alt="Oysters" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Desserts</h3>
-                        <p className="category-description">Reconnaissez les desserts et pâtisseries populaires</p>
+                        <h3 className="category-title">Oysters</h3>
+                        <p className="category-description">Seafood rich in zinc, omega-3 and protein, renowned for its immune benefits and iodine texture.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/sushis.png" alt="Fast Food" className="category-image"/>
+                            <img src="/src/assets/sushis.png" alt="Sushis" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Fast Food</h3>
-                        <p className="category-description">Analysez les différents types de fast food</p>
+                        <h3 className="category-title">Sushis</h3>
+                        <p className="category-description">Balanced Japanese bites, combining vinegared rice, raw fish and seaweed, rich in omega-3 and protein.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/beef_tartare.png" alt="Cuisines du monde" className="category-image"/>
+                            <img src="/src/assets/beef_tartare.png" alt="Beef tartare" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Cuisines du Monde</h3>
-                        <p className="category-description">Découvrez les spécialités culinaires internationales</p>
+                        <h3 className="category-title">Beef Tartare</h3>
+                        <p className="category-description">A raw dish rich in protein and iron, appreciated for its tenderness and spicy seasonings.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/cupcakes.png" alt="Boissons" className="category-image"/>
+                            <img src="/src/assets/cupcakes.png" alt="Cupcakes" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Boissons</h3>
-                        <p className="category-description">Identifiez les boissons populaires du monde entier</p>
+                        <h3 className="category-title">Cupcakes</h3>
+                        <p className="category-description">Soft little cakes, rich in sugars and fats, recognisable by their colourful, decorative icing.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/waffles.png" alt="Boissons" className="category-image"/>
+                            <img src="/src/assets/waffles.png" alt="Waffles" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Boissons</h3>
-                        <p className="category-description">Identifiez les boissons populaires du monde entier</p>
+                        <h3 className="category-title">Waffles</h3>
+                        <p className="category-description">Crunchy, moist waffles, rich in carbohydrates, often topped with sugar, fruit or chocolate.</p>
                     </div>
 
                     <div className="category-card">
                         <div className="category-image-container">
-                            <img src="/src/assets/paella.png" alt="Entrées" className="category-image"/>
+                            <img src="/src/assets/paella.png" alt="Paella" className="category-image"/>
                         </div>
-                        <h3 className="category-title">Entrées</h3>
-                        <p className="category-description">Explorez les différentes entrées de la gastronomie
-                            mondiale</p>
+                        <h3 className="category-title">Paëlla</h3>
+                        <p className="category-description">A Spanish dish rich in rice, proteins (seafood, chicken) and vegetables, with a tasty, colourful flavour.</p>
                     </div>
                 </div>
             </div>
 
             <button className="start-button" onClick={goToClassifier}>
-                Commencer à classifier
+                Start to classify
             </button>
         </div>
     );
 
-    // Classifier section content
+
     const renderClassifierSection = () => {
         const handleDrop = (e) => {
             e.preventDefault();
@@ -427,20 +420,18 @@ function App() {
         };
 
         const handleClick = () => {
-            // Simuler un clic sur l'input de type file
             document.getElementById('file-input').click();
         };
 
         return (
             <div id="classifier-section" className="classifier-section">
-                <h2 className="section-title">Classifiez votre image</h2>
-                <p className="section-description">Téléchargez une image d'aliment pour la classifier</p>
+                <h2 className="section-title">Classify your image</h2>
+                <p className="section-description">Upload an image of a food to classify it.</p>
 
                 <div className="classifier-content">
-                    {/* Colonne de gauche */}
                     <div className="classifier-left-column">
                         <div className="model-selection-container">
-                            <h3 className="model-selection-title">Choisissez un modèle</h3>
+                            <h3 className="model-selection-title">Select a model</h3>
                             <div className="model-buttons">
                                 {availableModels.map((model) => (
                                     <button
@@ -453,9 +444,9 @@ function App() {
                                 ))}
                             </div>
                             <p className="model-description">
-                                {selectedModel === "EfficientNetV2B2" && "EfficientNetV2B2 - Modèle performant avec une haute précision"}
-                                {selectedModel === "CNN" && "CNN - Modèle de réseau neuronal convolutif classique"}
-                                {selectedModel === "InceptionV3" && "InceptionV3 - Modèle profond avec une architecture avancée"}
+                                {selectedModel === "EfficientNetV2B2" && "EfficientNetV2B2 - High-performance, high-precision model"}
+                                {selectedModel === "CNN" && "CNN - Classical convolutional neural network model"}
+                                {selectedModel === "InceptionV3" && "InceptionV3 - Deep model with advanced architecture"}
                             </p>
 
                             <div
@@ -483,7 +474,7 @@ function App() {
                                             stroke="#2c7d43" strokeWidth="2" strokeLinecap="round"
                                             strokeLinejoin="round"/>
                                     </svg>
-                                    <p>Glisser votre image ici ou cliquer pour télécharger</p>
+                                    <p>Drag your image here or click to download</p>
                                 </div>
                             </div>
 
@@ -492,21 +483,21 @@ function App() {
                                 disabled={loading || !file}
                                 className="predict-button"
                             >
-                                {loading ? "Prédiction en cours..." : "Prédire"}
+                                {loading ? "Prediction in progress..." : "Predict"}
                             </button>
                         </div>
                     </div>
 
-                    {/* Colonne de droite */}
+
                     <div className="classifier-right-column">
                         <div className="preview-results-container">
                             {imagePreview ? (
                                 <div className="image-preview-container">
-                                    <h3 className="preview-title">Aperçu de l'image</h3>
+                                    <h3 className="preview-title">Image preview</h3>
                                     <div className="preview-image-wrapper">
                                         <img
                                             src={imagePreview}
-                                            alt="Aperçu"
+                                            alt="Preview"
                                             className="preview-image"
                                         />
                                     </div>
@@ -521,7 +512,7 @@ function App() {
                                         <path d="M3 15L7 13L10 15L15 11L21 15" stroke="#2c7d43" strokeWidth="2"
                                               strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
-                                    <p>Aucune image sélectionnée</p>
+                                    <p>No image selected</p>
                                 </div>
                             )}
 
@@ -531,19 +522,18 @@ function App() {
 
                             {error && (
                                 <div className="error-container">
-                                    <h3 className="error-title">Erreur :</h3>
+                                    <h3 className="error-title">Error :</h3>
                                     <p>{error}</p>
                                 </div>
                             )}
 
                             {prediction && (
                                 <div className="result-container">
-                                    <h2 className="result-title">Résultat : {prediction}</h2>
+                                    <h2 className="result-title">Result : {prediction}</h2>
                                     <p className="result-text">
-                                        Le modèle <strong>{selectedModel}</strong> a identifié votre image comme étant
-                                        un(e) <strong>{prediction.replace(/_/g, ' ')}</strong>
+                                        The model <strong>{selectedModel}</strong> has identified your image as: <strong>{prediction.replace(/_/g, ' ')}.</strong>
                                     </p>
-                                    <p className="result-confidence">Confiance : {(confidence * 100).toFixed(2)}%</p>
+                                    <p className="result-confidence">Accuracy : {(confidence * 100).toFixed(2)}%</p>
                                     <NutritionInfo nutrition={nutritionInfo}/>
                                 </div>
                             )}
@@ -556,12 +546,12 @@ function App() {
 
     return (
         <div className="app-container">
-            {/* Background food icons */}
+
             <div className="food-background">
                 {generateFoodBackground()}
             </div>
 
-            {/* Main Content */}
+
             <div className="app-content">
                 {currentSection === "home" ? renderHomeSection() : null}
                 {renderClassifierSection()}
