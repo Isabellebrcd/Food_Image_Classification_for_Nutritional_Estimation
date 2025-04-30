@@ -1,0 +1,23 @@
+# Backend dependencies
+fastapi==0.95.0
+uvicorn==0.21.1
+tensorflow==2.19.0
+numpy==1.23.5
+pillow==9.5.0
+matplotlib==3.7.1
+python-multipart==0.0.6
+pydantic==1.10.7
+typing-extensions==4.5.0
+uuid==1.30
+pathlib==1.0.1
+pandas==2.0.0
+
+# Middleware
+starlette==0.26.1
+httpx==0.24.0
+
+# For image processing
+scikit-image==0.20.0
+
+# For API requests
+aiofiles==23.1.0
