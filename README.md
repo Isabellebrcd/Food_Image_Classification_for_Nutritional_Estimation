@@ -31,7 +31,7 @@ This project implements an **AI-driven food classification** system that identif
 Project done during AI MSc at University of Kent for AI Sytems Implementation module.
 
 - **Isabelle Bricaud : CNN, All Web Application, JSON file**
-- Sushi Prommuangkun : InceptionV3
+- Suchi Prommuangkun : InceptionV3
 - Napatchol Thaipanich : EfficientNet
 - Alfred Ogunbayo : Decision Tree
 - Priscilla Baiya : Random Forest
